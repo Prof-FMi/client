@@ -40,7 +40,8 @@ pipeline:
       - LC_ALL=C.UTF-8
     commands:
       - cd clang-build
-      - ctest --output-on-failure
+      - useradd -m -s /bin/bash tester
+      - su-exec tester ctest --output-on-failure
 
   prepare-gcc:
     image: owncloudci/client:latest
@@ -68,7 +69,8 @@ pipeline:
       - LC_ALL=C.UTF-8
     commands:
       - cd gcc-build
-      - ctest --output-on-failure
+      - useradd -m -s /bin/bash tester
+      - su-exec tester ctest --output-on-failure
 
   notify-slack:
     image: plugins/slack
